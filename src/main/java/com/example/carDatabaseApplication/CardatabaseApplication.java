@@ -33,8 +33,9 @@ public class CardatabaseApplication implements CommandLineRunner {
 
 		Owner owner1 = new Owner("Johnny", "Walker");
 		Owner owner2 = new Owner("Sim", "Dope");
+		Owner owner3 = new Owner("StogieT", "Tman");
 
-		ownerRepository.saveAll(Arrays.asList(owner1,owner2));
+		ownerRepository.saveAll(Arrays.asList(owner1,owner2,owner3));
 
 		Car polo = new Car("Polo", "TSI", "Silver Grey", "CA377544", 2023, 269000, owner1);
 		Car nissan = new Car("Nissan", "Leaf", "White", "SSJ-3002", 2020, 29000, owner2);
