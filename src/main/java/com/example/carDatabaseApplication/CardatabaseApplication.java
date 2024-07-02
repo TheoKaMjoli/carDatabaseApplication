@@ -1,15 +1,14 @@
-package com.example.SharingRecipeDemo;
+package com.example.carDatabaseApplication;
 
-import com.example.SharingRecipeDemo.domain.Car;
-import com.example.SharingRecipeDemo.domain.Owner;
-import com.example.SharingRecipeDemo.repository.CarRepository;
-import com.example.SharingRecipeDemo.repository.OwnerRepository;
+import com.example.carDatabaseApplication.domain.Car;
+import com.example.carDatabaseApplication.domain.Owner;
+import com.example.carDatabaseApplication.repository.CarRepository;
+import com.example.carDatabaseApplication.repository.OwnerRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
 import java.util.Arrays;
 
 @SpringBootApplication
@@ -37,9 +36,16 @@ public class CardatabaseApplication implements CommandLineRunner {
 
 		ownerRepository.saveAll(Arrays.asList(owner1,owner2));
 
-		carRepository.save(new Car(owner1, "Polo", "TSI", "Silver Grey", "CA377544", 2023, 269000));
-		carRepository.save(new Car(owner2,"Nissan", "Leaf", "White", "SSJ-3002", 2020, 29000));
-		carRepository.save(new Car(owner2,"Toyota", "Prius", "Silver", "KKO-0212", 2022, 39000));
+		Car polo = new Car("Polo", "TSI", "Silver Grey", "CA377544", 2023, 269000, owner1);
+		Car nissan = new Car("Nissan", "Leaf", "White", "SSJ-3002", 2020, 29000, owner2);
+		Car toyota = new Car("Toyota", "Prius", "Silver", "KKO-0212", 2022, 39000, owner2);
+		Car bmw = new Car("BMW", "1 series", "Silver", "CY-22152", 2019, 22500, owner1);
+
+
+		carRepository.save(polo);
+		carRepository.save(nissan);
+		carRepository.save(toyota);
+		carRepository.save(bmw);
 
 		//fetch all cars and log to console
 		for(Car car : carRepository.findAll()){

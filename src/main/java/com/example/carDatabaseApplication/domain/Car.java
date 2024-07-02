@@ -1,8 +1,11 @@
-package com.example.SharingRecipeDemo.domain;
+package com.example.carDatabaseApplication.domain;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -20,13 +23,25 @@ public class Car {
     @JoinColumn(name="owner")
     private Owner owner;
 
-    public Car(Owner owner, String brand, String model, String color, String registrationNumber, int modelYear, int price) {
-        this.owner = owner;
+//    @ManyToMany(mappedBy = "cars")
+//    private Set<Owner> owners = new HashSet<Owner>();
+
+    public Car(String brand, String model, String color, String registrationNumber, int modelYear, int price, Owner owner) {
+        super();
         this.brand = brand;
         this.model = model;
         this.color = color;
         this.registrationNumber = registrationNumber;
         this.modelYear = modelYear;
         this.price = price;
+        this.owner = owner;
     }
+
+
+
+
+
+
+
+
 }
