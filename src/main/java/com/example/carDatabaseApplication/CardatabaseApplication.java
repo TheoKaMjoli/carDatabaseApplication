@@ -1,7 +1,9 @@
 package com.example.carDatabaseApplication;
 
+import com.example.carDatabaseApplication.domain.AppUser;
 import com.example.carDatabaseApplication.domain.Car;
 import com.example.carDatabaseApplication.domain.Owner;
+import com.example.carDatabaseApplication.repository.AppUserRepository;
 import com.example.carDatabaseApplication.repository.CarRepository;
 import com.example.carDatabaseApplication.repository.OwnerRepository;
 import org.slf4j.Logger;
@@ -16,11 +18,15 @@ public class CardatabaseApplication implements CommandLineRunner {
 
 	private final CarRepository carRepository;
 	private final OwnerRepository ownerRepository;
+	private final AppUserRepository appUserRepository;
 	private static final Logger logger = LoggerFactory.getLogger(CardatabaseApplication.class);
 
-    public CardatabaseApplication(CarRepository carRepository, OwnerRepository ownerRepository) {
+    public CardatabaseApplication(CarRepository carRepository,
+								  OwnerRepository ownerRepository,
+								  AppUserRepository appUserRepository) {
         this.carRepository = carRepository;
         this.ownerRepository = ownerRepository;
+        this.appUserRepository = appUserRepository;
     }
 
     public static void main(String[] args) {
@@ -48,6 +54,11 @@ public class CardatabaseApplication implements CommandLineRunner {
 		carRepository.save(toyota);
 		carRepository.save(bmw);
 
+		AppUser user1 = new AppUser("user", "$2a$10$rOx//RJznZ8Za94gEDRxSOk6WyfJKoBaIMca8sC8p00xI3wAYJ3Xm", "USER");
+		AppUser user2 = new AppUser("admin", "$2a$10$sj/IGETPoCmFTTYSm8Uo/.QXgPgBiMWOaF4APF8LovzZt9DkGpdk.", "ADMIN");
+		appUserRepository.save(user1);
+		appUserRepository.save(user2);
+
 		//fetch all cars and log to console
 		for(Car car : carRepository.findAll()){
 			logger.info("brand: {}, model{}", car.getBrand(), car.getModel());
@@ -55,6 +66,10 @@ public class CardatabaseApplication implements CommandLineRunner {
 
 		for(Owner owner : ownerRepository.findAll()){
 			logger.info("firstname: {}, lastname: {}", owner.getFirstname(), owner.getLastname());
+		}
+
+		for(AppUser user : appUserRepository.findAll()){
+			logger.info("username: {}, role: {}", user.getUsername(), user.getRole());
 		}
 	}
 }
